@@ -1,0 +1,40 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	//이 플러그인은 스프링부트의 의존성들을 관리해주기 때문에 필시 있어야 함
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+}
+
+group = 'com.example.betterme'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+//다양한 의존성들은 어떤 원격 저장소에서 받을지를 결정
+repositories {
+	mavenCentral()
+	jcenter() //추가
+}
+
+dependencies {
+	runtimeOnly('org.mariadb.jdbc:mariadb-java-client') //MariaDB
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' //JPA 사용
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.projectlombok:lombok:1.18.24'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
